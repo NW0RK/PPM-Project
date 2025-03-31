@@ -1,0 +1,722 @@
+/* ================= Basic Reset & Setup ================= */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* Colors */
+    --clr-primary: #F8F4E9; /* Cream/Off-White */
+    --clr-secondary: #7A5C58; /* Warm Brown */
+    --clr-accent: #008080; /* Deep Teal */
+    /* --clr-accent: #800020; */ /* Optional Burgundy Accent */
+    --clr-text: #333333; /* Dark Grey */
+    --clr-text-light: #666666; /* Lighter Grey */
+    --clr-bg-alt: #EAE0D5; /* Slightly darker beige */
+    --clr-white: #FFFFFF;
+    --clr-border: #ddd;
+
+    /* Fonts */
+    --font-heading: 'Playfair Display', serif;
+    --font-subheading: 'Lora', serif; /* Using Lora for other headings */
+    --font-body: 'Lato', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--clr-text);
+    background-color: var(--clr-primary);
+    line-height: 1.6;
+    font-size: 16px; /* Base font size */
+}
+
+h1, h2, h3, h4 {
+    line-height: 1.3;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-family: var(--font-heading);
+    color: var(--clr-secondary);
+    font-size: 2.8rem; /* Adjust as needed */
+}
+
+h2 {
+    font-family: var(--font-subheading);
+    color: var(--clr-secondary);
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 1.5em;
+}
+
+h3 {
+    font-family: var(--font-subheading);
+    color: var(--clr-secondary);
+    font-size: 1.4rem;
+}
+
+h4 {
+     font-family: var(--font-body);
+     font-weight: 700;
+     color: var(--clr-text);
+     font-size: 1.1rem;
+     margin-bottom: 0.3em;
+}
+
+a {
+    color: var(--clr-accent);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #005f5f; /* Darker Teal */
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+ul {
+    list-style: none;
+}
+
+/* ================= Utility Classes ================= */
+.container {
+    max-width: 1200px; /* Increased max-width slightly */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Buttons */
+.button {
+    display: inline-block;
+    padding: 0.7em 1.5em;
+    border-radius: 25px; /* Rounded corners */
+    font-family: var(--font-body);
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    text-align: center;
+}
+
+.button-filled {
+    background-color: var(--clr-accent);
+    color: var(--clr-white);
+    border-color: var(--clr-accent);
+}
+
+.button-filled:hover {
+    background-color: #006666; /* Darker accent */
+    border-color: #006666;
+    color: var(--clr-white);
+}
+
+.button-outline {
+    background-color: transparent;
+    color: var(--clr-secondary);
+    border-color: var(--clr-secondary);
+}
+
+.button-outline:hover {
+    background-color: var(--clr-secondary);
+    color: var(--clr-white);
+}
+
+.button-large {
+    padding: 0.9em 2em;
+    font-size: 1.1rem;
+}
+
+.button-small {
+     padding: 0.4em 1em;
+     font-size: 0.9rem;
+}
+
+/* ================= Header ================= */
+.site-header {
+    background-color: var(--clr-primary);
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(122, 92, 88, 0.2); /* Subtle brown border */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Style for text logo */
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--clr-secondary);
+    text-decoration: none;
+    display: inline-block; /* Ensures padding/margins work right */
+}
+
+.logo:hover {
+    color: var(--clr-secondary); /* Prevent hover color change on logo */
+}
+
+.main-nav ul {
+    display: flex;
+    gap: 25px; /* Increased gap slightly */
+}
+
+.main-nav a {
+    color: var(--clr-text);
+    font-weight: 400; /* Less bold nav items */
+    font-size: 1rem;
+    padding: 5px 0;
+    position: relative; /* For hover effect */
+    text-decoration: none;
+}
+/* Simple underline hover effect */
+.main-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--clr-accent);
+    transition: width 0.3s ease;
+}
+.main-nav a:hover::after,
+.main-nav a.active::after { /* Add .active class via JS later */
+    width: 100%;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.search-bar {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    width: 180px; /* Adjust as needed */
+    transition: border-color 0.3s;
+}
+.search-bar:focus {
+    outline: none;
+    border-color: var(--clr-accent);
+}
+
+.mobile-nav-toggle {
+     display: none; /* Hidden by default */
+     background: none;
+     border: none;
+     font-size: 1.5rem;
+     cursor: pointer;
+     color: var(--clr-secondary);
+}
+
+
+/* ================= Hero Section ================= */
+.hero-section {
+    /* Image credit: Unsplash user @linkedinsalesnavigator */
+    background-image: linear-gradient(rgba(248, 244, 233, 0.7), rgba(248, 244, 233, 0.4)), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZWR1Y2F0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center center;
+    padding: 100px 0 120px; /* More vertical padding */
+    text-align: center;
+    color: var(--clr-text); /* Text color readable over light bg */
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+.hero-section h1 {
+    margin-bottom: 0.5em;
+    color: var(--clr-secondary); /* Ensure heading is prominent */
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    margin-bottom: 1.8em;
+    color: var(--clr-text-light); /* Slightly lighter subtext */
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ================= Sections General Styling ================= */
+section {
+    padding: 80px 0; /* Consistent padding for sections */
+}
+
+/* Alternate Background for visual separation */
+.subjects-section,
+.news-section {
+    background-color: var(--clr-bg-alt);
+}
+
+/* ================= Features Section ================= */
+.features-grid {
+    display: grid;
+    /* Creates 4 columns on large screens, flexible on smaller */
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+}
+
+.feature-card {
+    background-color: var(--clr-primary); /* Match page bg */
+    padding: 30px 25px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #eee; /* Subtle border */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.08);
+}
+
+/* Styling for Unicode icon placeholders */
+.feature-icon {
+    font-size: 2.5rem; /* Larger size for Unicode symbols */
+    color: var(--clr-accent);
+    margin-bottom: 15px;
+    line-height: 1; /* Adjust line height for symbols */
+    /* Keep centering */
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.feature-card h3 {
+    margin-bottom: 0.5em;
+    font-size: 1.25rem; /* Slightly smaller heading */
+}
+
+.feature-card p {
+    color: var(--clr-text-light);
+    font-size: 0.95rem;
+    margin-bottom: 1em;
+}
+
+.feature-link {
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* ================= Subjects Section ================= */
+.subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+.subject-card {
+    background-color: var(--clr-primary); /* White card on beige bg */
+    border-radius: 8px;
+    overflow: hidden; /* To clip image */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.subject-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.subject-card img {
+    width: 100%;
+    height: 180px; /* Fixed height for consistency */
+    object-fit: cover; /* Ensures image covers the area */
+}
+
+.subject-card-content {
+     padding: 20px;
+     flex-grow: 1; /* Allow content to take remaining space */
+     display: flex;
+     flex-direction: column;
+     justify-content: space-between; /* Pushes button down */
+}
+
+.subject-card h3 {
+    margin-bottom: auto; /* Push title up */
+    padding-bottom: 15px; /* Space between title and button */
+     font-size: 1.3rem;
+}
+
+/* ================= Library & Essay Preview Section ================= */
+.preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Flexible columns */
+    gap: 50px; /* More gap between library and essay */
+    align-items: start; /* Align items to top */
+}
+
+.library-preview h3, .essay-preview h3 {
+     margin-bottom: 1.5em;
+     text-align: left; /* Align subsection headers left */
+}
+
+.book-covers {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap; /* Allow wrapping if needed */
+    margin-bottom: 1.5em;
+}
+
+.book-covers img {
+    width: 100px; /* Fixed width */
+    height: 150px;
+    object-fit: cover;
+    border: 1px solid var(--clr-border);
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.section-link {
+     font-weight: bold;
+     display: inline-block;
+     margin-top: 10px;
+}
+
+.essay-preview p.essay-prompt {
+    color: var(--clr-text-light);
+    margin-bottom: 1.5em;
+    font-size: 1rem;
+}
+
+/* Styling for essay graphic placeholder */
+.essay-placeholder-graphic {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--clr-text-light);
+    /* Optional: Add light background */
+    /* background-color: var(--clr-bg-alt); */
+    border-radius: 4px;
+    margin-bottom: 1.5em;
+    font-size: 2.5rem; /* Adjust size of unicode symbol */
+    line-height: 1;
+}
+
+.essay-preview ul {
+    margin-bottom: 1.5em;
+}
+.essay-preview ul li {
+    padding: 5px 0;
+    font-style: italic;
+    color: var(--clr-secondary); /* Brown color for titles */
+     border-bottom: 1px dashed #ccc;
+}
+.essay-preview ul li:last-child {
+    border-bottom: none;
+}
+
+
+/* ================= News Section ================= */
+.news-list {
+    max-width: 800px; /* Limit width of news list */
+    margin: 0 auto 40px auto; /* Center list and add bottom margin */
+}
+
+.news-item {
+    display: flex;
+    align-items: flex-start; /* Align image top with text */
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--clr-border);
+}
+.news-item:last-child {
+    border-bottom: none;
+}
+
+.news-thumbnail {
+    width: 100px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0; /* Prevent image from shrinking */
+}
+
+.news-content h4 {
+     margin-bottom: 0.3em;
+}
+
+.news-meta {
+    font-size: 0.85rem;
+    color: var(--clr-text-light);
+    margin-bottom: 0.5em;
+}
+
+.read-more {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+/* ================= Footer ================= */
+.site-footer-bottom {
+    background-color: var(--clr-secondary);
+    color: rgba(248, 244, 233, 0.85); /* Lighter cream text */
+    padding: 60px 0 30px;
+    font-size: 0.95rem;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.footer-col h4 {
+    font-family: var(--font-body); /* Use body font for footer headings */
+    color: var(--clr-primary); /* Brighter headings */
+    margin-bottom: 1em;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.footer-logo {
+     display: inline-block;
+     margin-bottom: 1em;
+     color: var(--clr-primary); /* Footer logo uses primary (cream) color */
+     font-size: 1.5rem;
+}
+.footer-logo:hover {
+    color: var(--clr-primary); /* Prevent color change */
+}
+
+
+.footer-about p {
+    opacity: 0.9;
+}
+
+.footer-col ul li {
+    margin-bottom: 0.7em;
+}
+
+.footer-col ul li a {
+    color: inherit; /* Inherit light cream color */
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+    opacity: 1;
+    text-decoration: underline; /* Add underline on hover */
+}
+
+/* Social Icons Placeholder styling */
+.social-icons {
+    margin-top: 1.5em;
+}
+.social-icons a {
+    color: inherit;
+    opacity: 0.7;
+    margin: 0 5px; /* Add space between text links */
+    font-weight: bold;
+    font-size: 0.9em;
+}
+.social-icons a:hover {
+    opacity: 1;
+    text-decoration: none;
+}
+
+
+.footer-copyright {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(248, 244, 233, 0.2); /* Subtle separator */
+    font-size: 0.9em;
+    opacity: 0.7;
+}
+
+
+/* ================= Responsive Adjustments ================= */
+
+@media (max-width: 992px) {
+    .header-container {
+        position: relative; /* Needed for absolute positioning of nav */
+    }
+    .main-nav {
+        /* Basic mobile menu styling - hide by default, needs JS to toggle */
+        display: none; /* Hide the nav items */
+        position: absolute;
+        top: 100%; /* Position below header */
+        left: 0;
+        right: 0;
+        background-color: var(--clr-primary);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        padding: 20px;
+        border-top: 1px solid var(--clr-border);
+    }
+     /* Add class via JS to show menu */
+     .main-nav.active {
+        display: block;
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+     .header-right .search-bar,
+     .header-right .button-outline {
+        /* Optionally hide search/login on small screens if menu is open */
+     }
+
+    .mobile-nav-toggle {
+        display: block; /* Show hamburger */
+    }
+
+    .preview-grid {
+         grid-template-columns: 1fr; /* Stack library/essay on smaller screens */
+         gap: 30px;
+    }
+    .library-preview, .essay-preview {
+        text-align: center; /* Center content when stacked */
+    }
+    .library-preview h3, .essay-preview h3 {
+         text-align: center;
+    }
+     .book-covers {
+         justify-content: center;
+    }
+     .essay-preview ul {
+         text-align: left; /* Keep list items left-aligned */
+         display: inline-block; /* Center the list block itself */
+         max-width: 90%;
+     }
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.8rem; }
+
+    .hero-section { padding: 80px 0; }
+    .hero-section p { font-size: 1rem; }
+
+    .features-grid, .subjects-grid {
+         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Allow smaller cards */
+         gap: 20px;
+    }
+
+     .feature-icon { font-size: 2.2rem; height: 45px;} /* Slightly smaller icon */
+     .essay-placeholder-graphic { font-size: 2.2rem;}
+
+    .footer-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 30px;
+    }
+     .footer-col {
+        text-align: center; /* Center footer columns */
+    }
+     .footer-col ul {
+         padding-left: 0;
+    }
+     .social-icons {
+         margin: 1.5em auto 0; /* Center social icons */
+    }
+     .header-right {
+        /* Further adjust/hide header elements if needed */
+     }
+}
+
+@media (max-width: 576px) {
+    .header-container {
+         flex-wrap: wrap; /* Allow logo/buttons to wrap if too small */
+         justify-content: space-between;
+    }
+    .header-right {
+         /* Hide buttons/search if really small or style differently */
+         display: none; /* Simplest solution, adjust as needed */
+    }
+     .logo {
+         flex-grow: 1; /* Allow logo to take space */
+     }
+
+     .news-item {
+         flex-direction: column;
+         align-items: center; /* Center image and text when stacked */
+         text-align: center;
+         gap: 15px;
+     }
+     .news-content {
+         text-align: center;
+     }
+     .read-more {
+          display: inline-block; /* Ensure button look works */
+     }
+     .button { /* Slightly smaller buttons on mobile */
+        padding: 0.6em 1.3em;
+     }
+      .button-large {
+          padding: 0.8em 1.8em;
+          font-size: 1rem;
+     }
+     .feature-icon { font-size: 2rem; height: 40px;}
+     .essay-placeholder-graphic { font-size: 2rem;}
+}
+
+/* ================= Button Upload Style ================= */
+
+.button-upload {
+    background-color: var(--clr-secondary); /* Warm Brown background */
+    color: var(--clr-primary);           /* Cream/Off-White text for contrast */
+    border-color: var(--clr-secondary);    /* Matching border */
+    border-radius: 6px;                 /* Significantly less rounded corners -> Squarish */
+    padding: 0.6em 1.2em;                /* Slightly adjusted padding for a squarer feel (optional) */
+}
+
+.button-upload:hover {
+    background-color: #6A4C48; /* A slightly darker shade of the Warm Brown */
+    border-color: #6A4C48;
+    color: var(--clr-white); /* Brighter white text on hover */
+    /* Optional: Add a subtle lift effect */
+    /* transform: translateY(-1px); */
+    /* box-shadow: 0 2px 4px rgba(0,0,0,0.1); */
+}
+
+.essay-preview ul li a {
+    color: var(--clr-secondary); /* Brown color */
+    text-decoration: none;     /* Remove default underline */
+    font-style: italic;        /* Apply italic here */
+    display: block;            /* Makes the entire block clickable, not just text */
+    transition: color 0.2s ease; /* Smooth transition for hover */
+}
+
+.essay-preview ul li a:hover {
+    color: var(--clr-accent);
+}
